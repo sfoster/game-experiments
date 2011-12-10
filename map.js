@@ -14,7 +14,15 @@ define(function(){
     return imxpxl;
   }
   
-  
+  function rgbToHex(r,g,b){
+    // 0 = 48, 9 = 57
+    var str = "", n;
+    for(var i=0, len=arguments.length; i<len; i++){
+      n = Math.floor(arguments[i]/16);
+      str += (n > 9) ?  String.fromCharCode(64+n-9) : n;
+    }
+    return str;
+  }
   
   return {
     init: function(){
@@ -24,25 +32,27 @@ define(function(){
       document.body.appendChild(canvas);
     },
     loadMap: function(img, cb){
-      var map = new Image(img.width, img.height);
+      var map = new Image(img.width, img.height)
       var loaded = function () {
         var data = getImageData(this),
             width = map.height, 
             height = map.width, 
             col = 0, row = 0, 
             rows = [],
-            tone, 
+            value, 
             str="";
-        console.log("image data for width: %s, height: %s", width, height)
+        // console.log("image data for width: %s, height: %s", width, height)
         for (var i = 0, n = data.length; i < n; i += 4) {
           // i+3 is alpha
           col = i/4 % width;
-          row = (i/4 - col) / height;
-          tone = Math.floor(data[i+3]/128);
+          row = (i/4 - col) / width;
+          // treat colors with less than 0.5 opacity as white
+          value = (data[i+3] >= 128) ? rgbToHex(data[i], data[i+1], data[i+2]) : rgbToHex(255,255,255);
+          // console.log("col: %s, row: %s, value: %s", col, row, value);
           if(col){
-            rows[row] += ""+tone; 
+            rows[row].push(value); 
           } else {
-            rows[row] = tone; 
+            rows[row] = [value]; 
           }
         }
         map.removeEventListener("load", loaded, false);
