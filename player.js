@@ -9,8 +9,7 @@ define(['player-controls'], function(controls){
         controls.name, "animate", "collision"
       ].join(", ");
 
-      var player = Crafty.e(components)
-        .attr({x: 160, y: 144, z: 1});
+      var player = Crafty.e(components);
 
       // init the custom controls
       player[controls.name](1);
@@ -45,20 +44,20 @@ define(['player-controls'], function(controls){
       
       // set up collision
       player.collision()
-        .onhit("wall_left", function() {
+        .onHit("wall_left", function() {
           this.x += this._speed;
           this.stop();
-        }).onhit("wall_right", function() {
+        }).onHit("wall_right", function() {
           this.x -= this._speed;
           this.stop();
-        }).onhit("wall_bottom", function() {
+        }).onHit("wall_bottom", function() {
           this.y -= this._speed;
           this.stop();
-        }).onhit("wall_top", function() {
+        }).onHit("wall_top", function() {
           this.y += this._speed;
           this.stop();
         });      
-      
+      return player;
     },
     name: "player-controls"
   };
