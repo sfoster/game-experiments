@@ -2,9 +2,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+  <script src="http://sfoster.dojotoolkit.org/sandbox/require-1.0.1.js"></script>
   <script type="text/javascript" src="./crafty.js"></script>
-  <script type="text/javascript" src="http://craftyjs.com/release/0.3/crafty.js"></script>
-  <!-- script type="text/javascript" src="./game.js"></script -->
   <title>My Crafty Game</title>
   <style>
     body, html { margin:0; padding: 0; overflow:hidden; font-family:Arial; font-size:20px }
@@ -12,7 +11,7 @@
   </style>
 </head>
 <body>
-  <script src="http://sfoster.dojotoolkit.org/sandbox/require-1.0.1.js"></script>
+  <canvas style="border: 1px solid red; position: absolute; top: 0; z-index: 10; display:block" id="offscreen" width="20" height="20"></div>
   <script>
     require({
       baseUrl: '.',
